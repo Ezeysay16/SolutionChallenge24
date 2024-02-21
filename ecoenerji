@@ -1,0 +1,72 @@
+import time
+
+class EnerjiTasarrufuSistemi:
+    def __init__(self):
+        self.ısıtma_durumu = False
+        self.aydınlatma_durumu = False
+        self.klima_durumu = False
+        self.sicaklik = 20 # Örnek başlangıç sıcaklığı
+        self.hareket = False
+
+    def isıtma_ac(self):
+        if not self.ısıtma_durumu:
+            print("Isıtma sistemi açıldı.")
+            self.ısıtma_durumu = True
+
+    def isıtma_kapat(self):
+        if self.ısıtma_durumu:
+            print("Isıtma sistemi kapatıldı.")
+            self.ısıtma_durumu = False
+
+    def aydınlatma_ac(self):
+        if not self.aydınlatma_durumu:
+            print("Aydınlatma açıldı.")
+            self.aydınlatma_durumu = True
+
+    def aydınlatma_kapat(self):
+        if self.aydınlatma_durumu:
+            print("Aydınlatma kapatıldı.")
+            self.aydınlatma_durumu = False
+
+    def klima_ac(self):
+        if not self.klima_durumu:
+            print("Klima açıldı.")
+            self.klima_durumu = True
+
+    def klima_kapat(self):
+        if self.klima_durumu:
+            print("Klima kapatıldı.")
+            self.klima_durumu = False
+
+    def enerji_tasarruf_modu(self):
+        print("Enerji tasarrufu modu aktif.")
+        self.isıtma_kapat()
+        self.aydınlatma_kapat()
+        self.klima_kapat()
+
+    def sıcaklık_oku(self):
+        # Burada gerçek bir sıcaklık okuma işlemi gerçekleşebilir.
+        return self.sicaklik
+
+    def hareket_durumu_oku(self):
+        # Burada gerçek bir hareket sensöründen okuma yapılabilir.
+        return self.hareket
+
+# Akıllı ev örneği
+ev = EnerjiTasarrufuSistemi()
+
+while True:
+    sıcaklık = ev.sıcaklık_oku()
+    hareket = ev.hareket_durumu_oku()
+
+    if sıcaklık > 25 or hareket:
+        # Sıcaklık yüksekse veya hareket algılandıysa enerji tasarrufu modunu devre dışı bırak
+        print("Yüksek sıcaklık veya hareket algılandı, enerji tasarrufu modu devre dışı bırakıldı.")
+        ev.ısıtma_ac()
+        ev.aydınlatma_ac()
+        ev.klima_kapat()
+    else:
+        ev.enerji_tasarruf_modu()
+
+    # 10 saniye bekleme
+    time.sleep(10)
